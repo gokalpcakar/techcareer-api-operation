@@ -25,3 +25,12 @@
     background-color: rgb(44, 62, 80);
     color: white;
 }
+
+.btn{
+    border: 0;
+    background-color: #d9534f;
+    color: #f7f7f7;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}

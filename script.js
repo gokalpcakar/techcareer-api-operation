@@ -1,3 +1,4 @@
+
 axios.get('https://northwind.vercel.app/api/products')
     .then(response => {
         var products = response.data;
@@ -12,20 +13,19 @@ axios.get('https://northwind.vercel.app/api/products')
                 <td>${product.name}</td>
                 <td>${product.unitPrice}</td>
                 <td>${product.unitsInStock}</td>
-            `
-            var td = document.createElement('td')
-            var button = document.createElement('button')
-            button.textContent = 'Delete'
-            button.classList.add('btn')
-            td.appendChild(button)
+                <td><button class='btn' data-id=${product.id} onclick=deleteProduct(${product.id})>Delete</button></td>
+                `
 
-            button.addEventListener('click', function () {
-                axios.delete(`https://northwind.now.sh/api/products/${product.id}`);
-                td.parentElement.remove()
-            });
-
-            tr.append(td)
             tbody.appendChild(tr)
         });
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err, "Ürünler getirilemedi"))
+
+const deleteProduct = (id) => {
+    try {
+        axios.delete(`https://northwind.now.sh/api/products/${id}`)
+        document.querySelector(`[data-id="${id}"]`).parentElement.parentElement.remove();
+    } catch (error) {
+        console.log("Silme işlemi başarısız.")
+    }
+}
